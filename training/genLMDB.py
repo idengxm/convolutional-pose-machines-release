@@ -3,12 +3,14 @@ import numpy as np
 import json
 import cv2
 import lmdb
+import sys
+sys.path.insert(0, 'D:\\Projects\\Human_Pose_Estimation\\caffe\\Build\\x64\\Release\\pycaffe\\')
 import caffe
 import os.path
 import struct
 
 def writeLMDB(datasets, lmdb_path, validation):
-	env = lmdb.open(lmdb_path, map_size=int(1e12))
+	env = lmdb.open(lmdb_path, map_size=int(2e11))
 	txn = env.begin(write=True)
 	data = []
 
@@ -174,8 +176,8 @@ def float2bytes(floats):
 if __name__ == "__main__":
 	
 	#writeLMDB(['MPI'], 'lmdb/MPI_train_split', 1) # only include split training data (validation data is held out)
-	#writeLMDB(['MPI'], 'lmdb/MPI_alltrain', 0)
+	writeLMDB(['MPI'], 'lmdb/MPI_alltrain', 0)
 	#writeLMDB(['LEEDS'], 'lmdb/LEEDS_PC', 0)
 	#writeLMDB(['FLIC'], 'lmdb/FLIC', 0)
 
-	writeLMDB(['MPI', 'LEEDS'], 'lmdb/MPI_LEEDS_alltrain', 0) # joint dataset
+	#writeLMDB(['MPI', 'LEEDS'], 'lmdb/MPI_LEEDS_alltrain', 0) # joint dataset
